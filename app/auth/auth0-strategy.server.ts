@@ -5,7 +5,8 @@ const auth0Strategy = new Auth0Strategy(
         callbackURL: process.env.AUTH0_CALLBACK_URL!,
         clientID: process.env.AUTH0_CLIENT_ID!,
         clientSecret: process.env.AUTH0_CLIENT_SECRET!,
-        domain: process.env.AUTH0_DOMAIN!
+        domain: process.env.AUTH0_DOMAIN!,
+        audience: process.env.AUTH0_AUDIENCE!
     },
     async ({ accessToken }) => {
         return accessToken;
