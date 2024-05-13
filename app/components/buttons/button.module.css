@@ -3,25 +3,12 @@
 }
 
 .main {
-    
+    composes: button;
 }
 
 .link {
+    composes: button;
+    composes: link from '../links.module.css';
     background: none;
     border: none;
-    padding: 0.25rem;
-    text-decoration: 2px dashed underline;
-    font-weight: bold;
-    color: inherit;
-    transition: outline-color,outline-width 100ms ease-in-out;
-}
-
-.link:hover {
-    text-decoration: 2px solid underline;
-    cursor: pointer;
-}
-
-.link:focus {
-    outline: 3px solid var(--blue-50);
-    border-radius: 5px;
 }

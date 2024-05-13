@@ -6,7 +6,7 @@ type ButtonProps = {
 } & Omit<ComponentPropsWithoutRef<'button'>, 'className'>;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ variant = 'main', ...rest }, ref) => {
-    const classNames = [styles.button, styles[variant]];
+    const classNames = [styles[variant]];
     
     return (
         <button className={classNames.join(' ')} {...rest} ref={ref} />
