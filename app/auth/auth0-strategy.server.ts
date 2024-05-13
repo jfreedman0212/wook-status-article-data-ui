@@ -1,4 +1,7 @@
-import {Auth0Strategy} from "remix-auth-auth0";
+import {Auth0ExtraParams, Auth0Profile, Auth0Strategy} from "remix-auth-auth0";
+import {OAuth2StrategyVerifyParams} from "remix-auth-oauth2";
+
+type LoggedInUser = OAuth2StrategyVerifyParams<Auth0Profile, Auth0ExtraParams>;
 
 const auth0Strategy = new Auth0Strategy(
     {
@@ -8,9 +11,9 @@ const auth0Strategy = new Auth0Strategy(
         domain: process.env.AUTH0_DOMAIN!,
         audience: process.env.AUTH0_AUDIENCE!
     },
-    async ({ accessToken }) => {
-        return accessToken;
+    async (params) => {
+        return params;
     }
 );
 
-export { auth0Strategy };
+export { auth0Strategy, type LoggedInUser };
