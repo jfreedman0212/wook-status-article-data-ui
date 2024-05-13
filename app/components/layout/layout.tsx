@@ -1,7 +1,8 @@
 import styles from "./layout.module.css";
 import {ReactNode} from "react";
-import {Form, NavLink} from "@remix-run/react";
+import {Form} from "@remix-run/react";
 import {Button} from "~/components/buttons";
+import {NavLink} from "~/components/links";
 
 type LayoutProps = {
     loggedInUser?: { name: string } | null;
@@ -22,8 +23,8 @@ function Layout({ loggedInUser, children }: LayoutProps) {
                     </nav>
                 </div>
                 {loggedInUser ? (
-                    <Form action="/auth/logout" method="post">
-                        Welcome, {loggedInUser.name}.&nbsp;
+                    <Form action="/auth/logout" method="post" className={styles.user}>
+                        <span>Welcome, {loggedInUser.name}.</span>
                         <Button variant='link'>Log Out</Button>
                     </Form>
                 ) : (

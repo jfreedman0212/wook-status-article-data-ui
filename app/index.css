@@ -1,37 +1,15 @@
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/orange.css';
+
 :root {
     font-family: Helvetica, sans-serif;
     font-size: 16px;
-    --orange-500: hsl(40, 100%, 50%);
-    --blue-50: hsl(240, 50%, 90%);
-    --blue-900: hsl(240, 50%, 50%);
 }
 
 body {
     padding: 0;
     margin: 0;
-}
-
-a {
-    background: none;
-    border: none;
-    padding: 0.25rem;
-    text-decoration: 2px dashed underline;
-    font-weight: bold;
-    color: inherit;
-    transition: outline-color,outline-width 100ms ease-in-out;
-}
-
-a:hover {
-    text-decoration: 2px solid underline;
-    cursor: pointer;
-}
-
-a:focus {
-    outline: 3px solid var(--blue-50);
-    border-radius: 5px;
-}
-
-a.active {
-    color: var(--orange-500);
-    text-decoration-color: var(--orange-500);
 }

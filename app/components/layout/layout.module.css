@@ -4,8 +4,8 @@
 
 .header {
     padding: 1rem;
-    background: var(--blue-900);
-    color: var(--blue-50);
+    background: var(--blue-12);
+    color: var(--blue-5);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,7 +19,7 @@
 
 .titleContainer > h1 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .nav {
@@ -27,6 +27,12 @@
     gap: 1rem;
 }
 
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .main {
-    
+    padding: 1rem;
 }
