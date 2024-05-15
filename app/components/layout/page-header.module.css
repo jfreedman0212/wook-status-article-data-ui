@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.heading {
+    margin: 0;
+}

@@ -1,0 +1,25 @@
+.input {
+    composes: outline-transition from '../buttons-and-links.module.css';
+    padding: 0.5rem;
+    border: 2px solid var(--gray-7);
+    font-size: 1rem;
+    border-radius: 5px;
+    background-color: var(--gray-2);
+    font-family: inherit;
+    color: var(--gray-12);
+}
+
+.input:user-invalid, .input[aria-invalid='true'] {
+    border-color: var(--red-7);
+    background-color: var(--red-3);
+}
+
+.input:focus {
+    outline: 3px solid var(--blue-7);
+    border-color: var(--blue-12);
+}
+
+.input:user-invalid:focus, .input[aria-invalid='true']:focus {
+    outline-color: var(--red-7);
+    border-color: var(--red-11);
+}

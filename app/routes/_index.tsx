@@ -1,14 +1,10 @@
-import type { MetaFunction } from "@remix-run/node";
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
+import {PageHeader} from "~/components/layout";
 
 export default function Index() {
   return (
-      <p>I am the home page!</p>
+      <>
+        <PageHeader heading='Coming Soon!' />
+        <p>The running stats for the status articles will go here.</p>
+      </>
   );
 }
