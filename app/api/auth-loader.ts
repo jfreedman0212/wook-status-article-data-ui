@@ -1,6 +1,7 @@
 import {ActionFunction, ActionFunctionArgs, LoaderFunction, LoaderFunctionArgs, redirect} from "@remix-run/node";
 import {authenticator} from "~/auth/authenticator.server";
 import process from "node:process";
+import {json} from "@remix-run/react";
 
 type FunctionOrValue<TArgs, TResult> = ((args: TArgs) => (Promise<TResult>) | TResult) | TResult; 
 
@@ -14,6 +15,7 @@ const authLoader = (fn: FunctionOrValue<LoaderFunctionArgs, LoaderReturn>): Load
         const loggedInUser = await authenticator.isAuthenticated(request, {
             failureRedirect: "/",
         });
+
         const authHeaders: HeadersInit = {
             Authorization: `Bearer ${loggedInUser.accessToken}`
         };
@@ -29,9 +31,18 @@ const authLoader = (fn: FunctionOrValue<LoaderFunctionArgs, LoaderReturn>): Load
 
         const response = await fetch(fullUrl, { headers: authHeaders });
 
-        if (!response.ok) throw response;
+        if (response.ok) {
+            return response;
+        }
 
-        return response;
+        switch (response.status) {
+            case 401: {
+                await authenticator.logout(request, { redirectTo: '/' });
+                return redirect('/');
+            }
+            default:
+                throw response;
+        }
     };
 };
 
@@ -68,10 +79,23 @@ const authAction = <T>(fn: FunctionOrValue<ActionFunctionArgs, ActionReturn<T>>)
             body: body ? JSON.stringify(body) : undefined,
             headers
         });
+        
+        if (response.ok) {
+            return redirectUrl ? redirect(redirectUrl) : response;
+        }
 
-        if (!response.ok) throw response;
-
-        return redirectUrl ? redirect(redirectUrl) : response;
+        switch (response.status) {
+            case 400: {
+                const body = await response.json() as { errors?: Record<string, string[]> } | null;
+                return json(body?.errors, { status: 400, statusText: 'Bad Request' });
+            }
+            case 401: {
+                await authenticator.logout(request, { redirectTo: '/' });
+                return redirect('/');
+            }
+            default: 
+                throw response;
+        }
     };
 };
 

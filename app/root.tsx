@@ -6,9 +6,16 @@ import {
 } from "@remix-run/react";
 import {Layout as MyLayout} from "~/components/layout";
 import {ReactNode} from "react";
-import {LinksFunction, LoaderFunction} from "@remix-run/node";
+import {LinksFunction, LoaderFunction, type MetaFunction} from "@remix-run/node";
 import rootCss from '~/index.css?url';
 import {authenticator} from "~/auth/authenticator.server";
+
+export const meta: MetaFunction = () => {
+    return [
+        { title: "Wookieepedia Status Article Data" },
+        { name: "description", content: "Running stats for Status Articles." },
+    ];
+};
 
 export const loader: LoaderFunction = async ({request}) => {
     const loggedInUser = await authenticator.isAuthenticated(request);
@@ -35,7 +42,7 @@ export function Layout({children}: { children: ReactNode }) {
             <Meta/>
             <Links/>
         </head>
-        <body>
+        <body className='dark-theme'>
             <MyLayout loggedInUser={loggedInUser}>{children}</MyLayout>
             <ScrollRestoration/>
             <Scripts/>

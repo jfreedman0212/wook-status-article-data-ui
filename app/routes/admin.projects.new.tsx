@@ -1,30 +1,22 @@
 import {authAction} from "~/api/auth-loader";
 import {ActionFunction} from "@remix-run/node";
 import {ProjectForm} from "~/components/projects";
+import {PageHeader} from "~/components/layout";
 
 export const action: ActionFunction = authAction(async ({ request }) => {
-    const formData = await request.formData();
-
     return {
         url: 'projects',
         method: 'post',
-        body: {
-            name: formData.get('name'),
-            type: formData.get('type'),
-            createdDate: formData.get('createdAtDate'),
-            createdTime: formData.get('createdAtTime'),
-        },
+        body: Object.fromEntries(await request.formData()),
         redirectUrl: '/admin/projects'
     };
 })
 
 export default function Projects() {
     return (
-        <section>
-            <header>
-                <h2>Create New Project</h2>
-            </header>
+        <>
+            <PageHeader heading='Create New Project' />
             <ProjectForm variant='new' />
-        </section>
+        </>
     );
 }

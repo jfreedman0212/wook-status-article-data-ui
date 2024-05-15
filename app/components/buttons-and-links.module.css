@@ -2,8 +2,16 @@
     transition: outline-color,outline-width 100ms ease-in-out;
 }
 
+.alignment {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    width: max-content;
+}
+
 .button {
     composes: outline-transition;
+    composes: alignment;
     font-size: 1rem;
     padding: 0.5rem 0.75rem;
     border: 1px solid transparent;
@@ -34,21 +42,21 @@
     composes: button;
     border-color: var(--blue-12);
     color: var(--blue-12);
-    background: var(--blue-4);
+    background: var(--blue-2);
 }
 
 .secondary:hover {
-    background: var(--blue-7);
+    background: var(--blue-4);
 }
 
 .link {
     composes: outline-transition;
+    composes: alignment;
     border: none;
     background: none;
     font-size: 1rem;
-    padding: 0.25rem;
+    padding: 0.5rem;
     text-decoration: 1px solid underline;
-    font-weight: bold;
     color: inherit;
 }
 

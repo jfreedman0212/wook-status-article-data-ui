@@ -1,0 +1,38 @@
+.formField {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.label {
+    
+}
+
+.hint {
+    display: flex;
+    gap: 0.125rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--gray-11);
+}
+
+.hint:empty {
+    visibility: collapse;
+}
+
+.messageList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.messageList:empty {
+    visibility: collapse;
+}
+
+.errorMessage {
+    composes: hint;
+    font-weight: bold;
+    color: var(--red-11);
+}
+

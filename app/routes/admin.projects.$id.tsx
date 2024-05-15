@@ -5,14 +5,12 @@ import {ActionFunction} from "@remix-run/node";
 import {ProjectForm} from "~/components/projects";
 import {DateTime} from "luxon";
 import {Time} from "~/components/time";
+import {PageHeader} from "~/components/layout";
 
 export const loader = authLoader(({params}) => ({url: `projects/${params.id}`}));
 
 export const action: ActionFunction = authAction(async ({request, params}) => {
-    const formData = await request.formData();
-    const action = formData.get('action') as 'save' | 'delete';
-
-    if (action === 'delete') {
+    if (request.method.toLowerCase() === 'delete') {
         return {
             url: `projects/${params.id}`,
             method: 'delete',
@@ -23,10 +21,7 @@ export const action: ActionFunction = authAction(async ({request, params}) => {
     return {
         url: `projects/${params.id}`,
         method: 'post',
-        body: {
-            name: formData.get('name'),
-            type: formData.get('type')
-        },
+        body: Object.fromEntries(await request.formData()),
         redirectUrl: '/admin/projects'
     };
 });
@@ -48,14 +43,13 @@ export default function Projects() {
     };
 
     return (
-        <section>
-            <header>
-                <h2>Edit {project.name}</h2>
+        <>
+            <PageHeader heading={`Edit ${project.name}`}>
                 <small>
                     Created At <Time value={project.createdAt}/>
                 </small>
-            </header>
+            </PageHeader>
             <ProjectForm variant='existing' defaultValues={project}/>
-        </section>
+        </>
     );
 }

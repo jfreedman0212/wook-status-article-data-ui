@@ -1,5 +1,5 @@
 .container {
-    
+    padding-top: 100px;
 }
 
 .header {
@@ -9,6 +9,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid var(--blue-10);
 }
 
 .titleContainer {
@@ -17,8 +22,23 @@
     align-items: center;
 }
 
+@media screen and (max-width: 800px) {
+    .header {
+        align-items: flex-start;
+    }
+    
+    .titleContainer {
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    
+    .nav {
+        flex-wrap: wrap;
+    }
+}
+
 .titleContainer > h1 {
-    margin: 0;
     font-size: 1rem;
 }
 
