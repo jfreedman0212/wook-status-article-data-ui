@@ -1,18 +1,17 @@
 import {ComponentPropsWithoutRef, forwardRef} from "react";
-import styles from "./button.module.css"; 
+import styles from "../buttons-and-links.module.css";
 
 type ButtonProps = {
-    variant?: 'link' | 'main';
+    variant?: 'primary' | 'secondary' | 'destructive' | 'link';
 } & Omit<ComponentPropsWithoutRef<'button'>, 'className'>;
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ variant = 'main', ...rest }, ref) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ variant = 'primary', ...rest }, ref) => {
     const classNames = [styles[variant]];
     
     return (
         <button className={classNames.join(' ')} {...rest} ref={ref} />
     );
 });
-
 Button.displayName = 'Button';
 
 export { Button };

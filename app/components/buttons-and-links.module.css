@@ -1,0 +1,78 @@
+.outline-transition {
+    transition: outline-color,outline-width 100ms ease-in-out;
+}
+
+.button {
+    composes: outline-transition;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button:focus {
+    outline: 3px solid var(--blue-7);
+}
+
+.primary {
+    composes: button;
+    border-color: var(--blue-11);
+    background: var(--blue-11);
+    color: var(--blue-1);
+}
+
+.primary:hover {
+    background: var(--blue-9);
+}
+
+.secondary {
+    composes: button;
+    border-color: var(--blue-12);
+    color: var(--blue-12);
+    background: var(--blue-4);
+}
+
+.secondary:hover {
+    background: var(--blue-7);
+}
+
+.link {
+    composes: outline-transition;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    padding: 0.25rem;
+    text-decoration: 1px solid underline;
+    font-weight: bold;
+    color: inherit;
+}
+
+.link:hover {
+    text-decoration: 3px solid underline;
+    cursor: pointer;
+}
+
+.link:focus {
+    outline: 3px solid var(--blue-5);
+    border-radius: 5px;
+}
+
+.activeLink {
+    composes: link;
+    color: var(--orange-7);
+    text-decoration-color: var(--orange-7);
+}
+
+.destructive {
+    composes: link;
+    color: var(--red-11);
+}
+
+.destructive:focus {
+    outline-color: var(--red-7);
+}
