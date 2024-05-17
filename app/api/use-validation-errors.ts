@@ -1,11 +1,17 @@
-import {useActionData} from "@remix-run/react";
+import {useActionData, useNavigation} from "@remix-run/react";
 
 function useValidationErrors() {
     return useActionData<Record<string,  string[]> | null>();
 }
 
 function useFieldValidationErrors(name: string) {
+    const { state } = useNavigation();
     const badRequestResponse = useValidationErrors();
+    
+    if (state !== 'idle') {
+        return [];
+    }
+    
     const errors: string[] = [];
 
     if (badRequestResponse) {

@@ -41,16 +41,14 @@ function FormField({name, label, children, required, hint}: FormFieldProps) {
                 {children}
             </FormFieldContext.Provider>
             <div className={styles.messageList}>
-                {hasErrors ? (
-                    <div id={contextValue.errorId!} aria-live='polite' className={styles.messageList}>
-                        {errors.map((error, idx) => (
-                            <span key={`${error}-${idx}`} className={styles.errorMessage}>
+                <div id={contextValue.errorId!} role='alert' className={styles.messageList}>
+                    {errors.map((error, idx) => (
+                        <span key={`${error}-${idx}`} className={styles.errorMessage}>
                                 <CrossCircledIcon aria-hidden='true'/>
                                 <span>{error}</span>
                             </span>
-                        ))}
-                    </div>
-                ) : null}
+                    ))}
+                </div>
                 {hints.map((hint, idx) => (
                     <small key={`${hint}-${idx}`} className={styles.hint} id={contextValue.hintId!}>
                         <QuestionMarkCircledIcon aria-hidden='true'/>

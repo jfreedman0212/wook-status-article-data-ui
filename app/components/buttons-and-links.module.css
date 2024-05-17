@@ -27,6 +27,10 @@
     outline: 3px solid var(--blue-7);
 }
 
+.button:disabled {
+    cursor: initial;
+}
+
 .primary {
     composes: button;
     border-color: var(--blue-11);
@@ -36,6 +40,12 @@
 
 .primary:hover {
     background: var(--blue-9);
+}
+
+.primary:disabled {
+    border-color: var(--gray-7);
+    background: var(--gray-5);
+    color: var(--gray-11);
 }
 
 .secondary {
@@ -68,6 +78,11 @@
 
 .link:focus {
     outline: 3px solid var(--blue-5);
+}
+
+.link:disabled, .link[aria-disabled='true'] {
+    pointer-events: none;
+    color: var(--gray-8);
 }
 
 .navLink {
