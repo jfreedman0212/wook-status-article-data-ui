@@ -1,30 +1,30 @@
-import {authAction, authLoader} from "~/api/auth-loader";
+import {wookApiFetch} from "~/api/wook-api-fetch.server";
 import {ClientActionFunction, useLoaderData} from "@remix-run/react";
 import {Project, RawProject} from "~/models/project";
-import {ActionFunction} from "@remix-run/node";
+import {ActionFunction, LoaderFunction, redirect, json} from "@remix-run/node";
 import {ProjectForm} from "~/components/projects";
 import {DateTime} from "luxon";
 import {Time} from "~/components/time";
 import {PageHeader} from "~/components/layout";
 
-export const loader = authLoader(({params}) => ({url: `projects/${params.id}`}));
+export const loader: LoaderFunction = async ({ request, params }) => {
+    const response = await wookApiFetch(request, `projects/${params.id}`);
+    const data = await response.json();
+    return json(data);
+};
 
-export const action: ActionFunction = authAction(async ({request, params}) => {
+export const action: ActionFunction = async ({ request, params }) => {
     if (request.method.toLowerCase() === 'delete') {
-        return {
-            url: `projects/${params.id}`,
-            method: 'delete',
-            redirectUrl: '/admin/projects'
-        };
+        await wookApiFetch(request, `projects/${params.id}`, { method: 'delete' });
+        return redirect('/admin/projects');
     }
 
-    return {
-        url: `projects/${params.id}`,
+    await wookApiFetch(request, `projects/${params.id}`, { 
         method: 'post',
         body: Object.fromEntries(await request.formData()),
-        redirectUrl: '/admin/projects'
-    };
-});
+    });
+    return redirect('/admin/projects');
+};
 
 export const clientAction: ClientActionFunction = async ({request, serverAction}) => {
     if (request.method.toLowerCase() === 'delete' && !confirm('Are you sure you want to delete this project?')) {
