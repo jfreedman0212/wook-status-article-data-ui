@@ -3,7 +3,7 @@ import {DateTime, DateTimeFormatOptions} from "luxon";
 
 type TimeProps = {
     formatOptions?: DateTimeFormatOptions;
-    value?: DateTime;
+    value?: DateTime | null;
 };
 
 const defaultFormat: DateTimeFormatOptions = {

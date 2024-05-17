@@ -24,7 +24,7 @@ export default function Projects() {
 
     return (
         <>
-            <PageHeader heading='Projects'>
+            <PageHeader heading='Projects' level='h3'>
                 <Link variant='secondary' to='new'>
                     <PlusCircledIcon aria-hidden='true' />
                     New

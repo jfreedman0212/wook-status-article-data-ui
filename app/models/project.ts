@@ -10,6 +10,7 @@ type RawProject = {
     name: string;
     type: ProjectType;
     createdAt: string;
+    isArchived: boolean;
 };
 
 type Project = {
@@ -17,6 +18,7 @@ type Project = {
     name: string;
     type: ProjectType;
     createdAt: DateTime;
+    isArchived: boolean;
 };
 
 export {

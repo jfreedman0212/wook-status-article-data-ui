@@ -2,7 +2,10 @@ import {
     json,
     Links,
     Meta,
-    Outlet, Scripts, ScrollRestoration, useRouteLoaderData,
+    Outlet,
+    Scripts,
+    ScrollRestoration,
+    useRouteLoaderData
 } from "@remix-run/react";
 import {Layout as MyLayout} from "~/components/layout";
 import {ReactNode} from "react";
@@ -42,7 +45,7 @@ export function Layout({children}: { children: ReactNode }) {
             <Meta/>
             <Links/>
         </head>
-        <body className='dark-theme'>
+        <body className='light-theme'>
             <MyLayout loggedInUser={loggedInUser}>{children}</MyLayout>
             <ScrollRestoration/>
             <Scripts/>
