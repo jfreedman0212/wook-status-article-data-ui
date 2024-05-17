@@ -5,6 +5,7 @@ import {Link} from "~/components/links";
 import {PageHeader} from "~/components/layout";
 import {LoaderFunction, MetaFunction, json} from "@remix-run/node";
 import {PlusCircledIcon} from "@radix-ui/react-icons";
+import {Card, CardList} from "~/components/cards";
 
 export const meta: MetaFunction = () => {
     return [
@@ -30,15 +31,15 @@ export default function Projects() {
                     New
                 </Link>
             </PageHeader>
-            <ul>
+            <CardList>
                 {rawProjects.map(p => (
-                    <li key={p.id}>
+                    <Card key={p.id} name={p.name}>
                         <Link to={`${p.id}`}>
                             {p.type === ProjectType.INTELLECTUAL_PROPERTY ? <em>{p.name}</em> : <>{p.name}</>}
                         </Link>
-                    </li>
+                    </Card>
                 ))}
-            </ul>
+            </CardList>
         </>
     );
 }

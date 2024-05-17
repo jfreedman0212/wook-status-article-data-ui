@@ -1,0 +1,62 @@
+.cardList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card {
+    padding: 1rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.red {
+    color: var(--red-12);
+    background: var(--red-3);
+    border-color: var(--red-7);
+}
+
+.blue {
+    color: var(--blue-12);
+    background: var(--blue-3);
+    border-color: var(--blue-7);
+}
+
+.green {
+    color: var(--green-12);
+    background: var(--green-3);
+    border-color: var(--green-7);
+}
+
+.orange {
+    color: var(--orange-12);
+    background: var(--orange-3);
+    border-color: var(--orange-7);
+}
+
+.gray {
+    color: var(--gray-12);
+    background: var(--gray-3);
+    border-color: var(--gray-7);
+}
+
+.pink {
+    color: var(--pink-12);
+    background: var(--pink-2);
+    border-color: var(--pink-5);
+}
+
+.purple {
+    color: var(--purple-12);
+    background: var(--purple-3);
+    border-color: var(--purple-7);
+}
+
+.yellow {
+    color: var(--yellow-12);
+    background: var(--yellow-2);
+    border-color: var(--yellow-7);
+}
