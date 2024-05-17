@@ -1,5 +1,5 @@
 import {wookApiFetch} from "~/api/wook-api-fetch.server";
-import {ClientActionFunction, useLoaderData} from "@remix-run/react";
+import {useLoaderData} from "@remix-run/react";
 import {Project, RawProject} from "~/models/project";
 import {ActionFunction, LoaderFunction, redirect, json} from "@remix-run/node";
 import {ProjectForm} from "~/components/projects";
@@ -14,24 +14,18 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
-    if (request.method.toLowerCase() === 'delete') {
+    const { action, ...project } = Object.fromEntries(await request.formData());
+    
+    if (action === 'delete') {
         await wookApiFetch(request, `projects/${params.id}`, { method: 'delete' });
         return redirect('/admin/projects');
     }
 
-    await wookApiFetch(request, `projects/${params.id}`, { 
+    await wookApiFetch(request, `projects/${params.id}`, {
         method: 'post',
-        body: Object.fromEntries(await request.formData()),
+        body: project
     });
     return redirect('/admin/projects');
-};
-
-export const clientAction: ClientActionFunction = async ({request, serverAction}) => {
-    if (request.method.toLowerCase() === 'delete' && !confirm('Are you sure you want to delete this project?')) {
-        return null;
-    }
-
-    return await serverAction();
 };
 
 export default function Projects() {

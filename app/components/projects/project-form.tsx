@@ -29,12 +29,25 @@ function ProjectForm(props: ProjectFormProps) {
 
     const createdAtDate = defaultValues?.createdAt?.toISODate() ?? '';
     const createdAtTime = defaultValues?.createdAt?.toFormat('HH:mm') ?? '';
-
+    
     return (
         <Form 
             className={styles.form}
             action={action} 
             method={method}
+            onSubmit={(e) => {
+                // we only do this to implement the delete confirmation. of course, the user won't
+                // have it if JS isn't available, but it will at least still work
+                const nativeEvent = e.nativeEvent as SubmitEvent;
+                const formData = new FormData(nativeEvent.target as HTMLFormElement, nativeEvent.submitter);
+                if (
+                    formData.get('action') === 'delete'
+                    && !confirm(`Are you sure you want to delete ${defaultValues.name || 'this project'}?`)
+                ) {
+                    e.preventDefault();
+                    return false;
+                }
+            }}
         >
             <FormField name='name' label='Name' required>
                 <Input type="text" defaultValue={defaultValues?.name} />
@@ -61,12 +74,11 @@ function ProjectForm(props: ProjectFormProps) {
                     <Link variant='link' to='/admin/projects'>Cancel</Link>
                 </div>
                 {variant === 'existing' ? (
-                    <Button 
+                    <Button
                         variant='destructive'
                         type='submit'
                         name='action'
                         value='delete'
-                        formMethod='delete'
                         formNoValidate
                     >
                         Delete
