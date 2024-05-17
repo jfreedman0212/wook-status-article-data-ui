@@ -15,8 +15,7 @@ primary_region = 'atl'
   # AUTH0_RETURN_TO_URL is a secret
   # AUTH0_LOGOUT_URL is a secret
   # COOKIE_SECRET is a secret
-  WOOK_API_BASE_URL = "https://wook-status-article-data.fly.dev"
-
+  WOOK_API_BASE_URL = "http://wook-status-article-data.internal:8080"
 
 [http_service]
   internal_port = 3000
