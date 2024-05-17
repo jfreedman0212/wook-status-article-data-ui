@@ -54,6 +54,7 @@
     composes: alignment;
     border: none;
     background: none;
+    border-radius: 5px;
     font-size: 1rem;
     padding: 0.5rem;
     text-decoration: 1px solid underline;
@@ -67,13 +68,25 @@
 
 .link:focus {
     outline: 3px solid var(--blue-5);
-    border-radius: 5px;
+}
+
+.navLink {
+    composes: link;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    text-decoration: none;
+    background: var(--gray-3);
 }
 
 .activeLink {
-    composes: link;
-    color: var(--orange-7);
-    text-decoration-color: var(--orange-7);
+    composes: navLink;
+    background-color: var(--gray-5);
+}
+
+.activeLink:hover {
+    background-color: var(--gray-4);
 }
 
 .destructive {

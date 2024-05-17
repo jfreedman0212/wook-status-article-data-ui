@@ -4,10 +4,15 @@ import {ProjectForm} from "~/components/projects";
 import {PageHeader} from "~/components/layout";
 
 export const action: ActionFunction = async ({ request }) => {
-    await wookApiFetch(request, 'projects', {
+    const response = await wookApiFetch(request, 'projects', {
         method: 'post',
         body: Object.fromEntries(await request.formData()),
     });
+
+    if (!response.ok) {
+        return response;
+    }
+    
     return redirect('/admin/projects');
 };
 

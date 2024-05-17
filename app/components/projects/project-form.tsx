@@ -42,7 +42,7 @@ function ProjectForm(props: ProjectFormProps) {
                 const formData = new FormData(nativeEvent.target as HTMLFormElement, nativeEvent.submitter);
                 if (
                     formData.get('action') === 'delete'
-                    && !confirm(`Are you sure you want to delete ${defaultValues.name || 'this project'}?`)
+                    && !confirm(`Are you sure you want to archive ${defaultValues.name || 'this project'}?`)
                 ) {
                     e.preventDefault();
                     return false;
@@ -81,7 +81,7 @@ function ProjectForm(props: ProjectFormProps) {
                         value='delete'
                         formNoValidate
                     >
-                        Delete
+                        Archive
                     </Button>
                 ) : null}
             </div>

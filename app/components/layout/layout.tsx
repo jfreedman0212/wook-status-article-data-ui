@@ -2,8 +2,8 @@ import styles from "./layout.module.css";
 import {ReactNode} from "react";
 import {Form} from "@remix-run/react";
 import {Button} from "~/components/buttons";
-import {NavLink} from "~/components/links";
-import {Page} from "~/components/layout/page";
+import {Link} from "~/components/links";
+import image from '~/assets/Site-logo.webp';
 
 type LayoutProps = {
     loggedInUser?: { name: string } | null;
@@ -13,18 +13,25 @@ type LayoutProps = {
 function Layout({ loggedInUser, children }: LayoutProps) {
     return (
         <div className={styles.container}>
-            <header className={`${styles.header} light-theme`}>
+            <header className={styles.header}>
                 <div className={styles.titleContainer}>
-                    <h1>Wookieepedia Status Article Data</h1>
+                    <Link to='https://starwars.fandom.com' referrerPolicy='no-referrer' target='_blank' rel="noreferrer">
+                        <img
+                            src={image}
+                            height={75}
+                            width={75}
+                            alt='Wookieepedia logo: the Death Star from Star Wars with the text "Wookieepedia, the Star Wars Wiki."'
+                        />
+                    </Link>
                     <nav className={styles.nav}>
-                        <NavLink to='/'>Stats</NavLink>
+                        <Link to='/'>Stats</Link>
                         {loggedInUser ? (
-                            <>
-                                <NavLink to='/admin/projects'>Projects</NavLink>
-                                <NavLink to='/admin/nominators'>Nominators</NavLink>
-                                <NavLink to='/admin/nominations'>Nominations</NavLink>
-                            </>
-                        ) : null}
+                            <Link to='/admin'>Manage Data</Link>
+                        ) : (
+                            <Form action="/auth/auth0" method="post">
+                                <Button variant='link'>Manage Data</Button>
+                            </Form>
+                        )}
                     </nav>
                 </div>
                 {loggedInUser ? (
@@ -32,14 +39,10 @@ function Layout({ loggedInUser, children }: LayoutProps) {
                         <span>Welcome, {loggedInUser.name}.</span>
                         <Button variant='link'>Log Out</Button>
                     </Form>
-                ) : (
-                    <Form action="/auth/auth0" method="post">
-                        <Button variant='link'>Manage Data</Button>
-                    </Form>  
-                )}
+                ) : null}
             </header>
             <main className={styles.main}>
-                <Page>{children}</Page>
+                {children}
             </main>
         </div>
     );

@@ -21,10 +21,15 @@ export const action: ActionFunction = async ({ request, params }) => {
         return redirect('/admin/projects');
     }
 
-    await wookApiFetch(request, `projects/${params.id}`, {
+    const response = await wookApiFetch(request, `projects/${params.id}`, {
         method: 'post',
         body: project
     });
+    
+    if (!response.ok) {
+        return response;
+    }
+    
     return redirect('/admin/projects');
 };
 

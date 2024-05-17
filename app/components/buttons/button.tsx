@@ -5,11 +5,11 @@ type ButtonProps = {
     variant?: 'primary' | 'secondary' | 'destructive' | 'link';
 } & Omit<ComponentPropsWithoutRef<'button'>, 'className'>;
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ variant = 'primary', ...rest }, ref) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ variant = 'primary', type = 'button', ...rest }, ref) => {
     const classNames = [styles[variant]];
     
     return (
-        <button className={classNames.join(' ')} {...rest} ref={ref} />
+        <button type={type} className={classNames.join(' ')} {...rest} ref={ref} />
     );
 });
 Button.displayName = 'Button';
