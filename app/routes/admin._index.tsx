@@ -1,5 +1,3 @@
-export default function AdminIndex() {
-    return (
-        <div>Choose some data to begin editing.</div>
-    );
-}
+import {LoaderFunction, redirect} from "@remix-run/node";
+
+export const loader: LoaderFunction = () => redirect('/admin/projects');

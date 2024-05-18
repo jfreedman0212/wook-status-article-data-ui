@@ -2,7 +2,7 @@ import {wookApiFetch} from "~/api/wook-api-fetch.server";
 import {useLoaderData} from "@remix-run/react";
 import {Project, RawProject} from "~/models/project";
 import {ActionFunction, LoaderFunction, redirect, json} from "@remix-run/node";
-import {ProjectForm} from "~/components/projects";
+import {ProjectForm} from "~/components/project-form";
 import {DateTime} from "luxon";
 import {Time} from "~/components/time";
 import {PageHeader} from "~/components/layout";

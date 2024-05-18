@@ -1,6 +1,6 @@
 import {wookApiFetch} from "~/api/wook-api-fetch.server";
 import {ActionFunction, redirect} from "@remix-run/node";
-import {ProjectForm} from "~/components/projects";
+import {ProjectForm} from "~/components/project-form";
 import {PageHeader} from "~/components/layout";
 
 export const action: ActionFunction = async ({ request }) => {

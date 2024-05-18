@@ -31,7 +31,7 @@ function FormField({name, label, children, required, hint}: FormFieldProps) {
     } else if (hint) {
         hints = [hint];
     }
-    
+
     return (
         <div className={styles.formField}>
             <label htmlFor={contextValue.fieldId} className={styles.label}>
@@ -44,9 +44,9 @@ function FormField({name, label, children, required, hint}: FormFieldProps) {
                 <div id={contextValue.errorId!} role='alert' className={styles.messageList}>
                     {errors.map((error, idx) => (
                         <span key={`${error}-${idx}`} className={styles.errorMessage}>
-                                <CrossCircledIcon aria-hidden='true'/>
-                                <span>{error}</span>
-                            </span>
+                            <CrossCircledIcon aria-hidden='true'/>
+                            <span>{error}</span>
+                        </span>
                     ))}
                 </div>
                 {hints.map((hint, idx) => (
