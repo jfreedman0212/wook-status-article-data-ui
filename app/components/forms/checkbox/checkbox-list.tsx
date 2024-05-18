@@ -1,7 +1,8 @@
 import {forwardRef, ReactNode, useId} from "react";
 import {FormFieldProvider, useFormField} from "~/components/forms/form-field-context";
 import {CheckboxListContext} from "~/components/forms/checkbox/checkbox-list-context";
-import styles from "../form-field.module.css";
+import formFieldStyles from "../form-field.module.css";
+import styles from "./checkbox-list.module.css";
 import {Errors} from "~/components/forms/errors";
 import {Hints} from "~/components/forms/hints";
 
@@ -20,7 +21,7 @@ const CheckboxList = forwardRef<HTMLFieldSetElement, CheckboxListProps>(({ name,
     
     return (
         <FormFieldProvider name={name} fieldId={fieldId} hint={hint} required={required}>
-            <div className={styles.formField}>
+            <div className={formFieldStyles.formField}>
                 <Fieldset ref={ref} label={label}>
                     <CheckboxListContext.Provider value={{ value, onChange }}>
                         {children}
@@ -41,8 +42,8 @@ const Fieldset = forwardRef<HTMLFieldSetElement, { children: ReactNode; label: s
     } = useFormField();
     
     return (
-        <fieldset ref={ref} className={styles.formField} {...ariaProps}>
-            <legend className={styles.label}>
+        <fieldset ref={ref} className={styles.fieldset} {...ariaProps}>
+            <legend className={styles.legend}>
                 {label}{!required ? ' (Optional)' : null}
             </legend>
             {children}

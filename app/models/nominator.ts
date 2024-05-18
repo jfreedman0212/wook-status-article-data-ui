@@ -5,10 +5,16 @@ enum NominatorAttributeType {
     BANNED = 'Banned'
 }
 
+type NominatorAttribute = {
+    id: number;
+    attributeName: NominatorAttributeType;
+    effectiveAt: string;
+};
+
 type Nominator = {
     id: number;
     name: string;
-    attributes: NominatorAttributeType[];
+    attributes: NominatorAttribute[];
 };
 
 export {

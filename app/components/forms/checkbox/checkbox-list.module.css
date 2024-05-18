@@ -1,8 +1,8 @@
 .fieldset {
+    composes: formField from '../form-field.module.css';
     composes: input from '../input.module.css';
 }
 
 .legend {
-    
+    composes: label from '../form-field.module.css';
 }
-
