@@ -38,6 +38,7 @@ function NominatorForm(props: NominatorFormProps) {
                     label='Attributes'
                     value={attributesState.value}
                     onChange={(checkbox, checked) => dispatch({ checkbox: checkbox as NominatorAttributeType, checked })}
+                    hint={['Banning a user will remove all other attributes.']}
                 >
                     <Checkbox 
                         value={NominatorAttributeType.AC_MEMBER}

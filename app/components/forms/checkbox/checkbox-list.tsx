@@ -1,40 +1,54 @@
 import {forwardRef, ReactNode, useId} from "react";
-import {useFieldValidationErrors} from "~/api/use-validation-errors";
-import {FormFieldContext} from "~/components/forms/form-field-context";
+import {FormFieldProvider, useFormField} from "~/components/forms/form-field-context";
 import {CheckboxListContext} from "~/components/forms/checkbox/checkbox-list-context";
-import styles from "./checkbox-list.module.css";
+import styles from "../form-field.module.css";
+import {Errors} from "~/components/forms/errors";
+import {Hints} from "~/components/forms/hints";
 
 type CheckboxListProps = {
     name: string;
     label: string;
     value: string[];
     onChange: (checkbox: string, checked: boolean) => void;
+    required?: boolean;
+    hint?: ReactNode | ReactNode[];
     children: ReactNode;
 };
 
-const CheckboxList = forwardRef<HTMLFieldSetElement, CheckboxListProps>(({ name, label, value, onChange, children }, ref) => {
+const CheckboxList = forwardRef<HTMLFieldSetElement, CheckboxListProps>(({ name, label, value, onChange, children, required, hint }, ref) => {
     const fieldId = `${useId()}__${name}`;
-    const errors = useFieldValidationErrors(name);
-    const hasErrors = errors.length > 0;
-
-    const contextValue = {
-        name,
-        fieldId,
-        errorId: hasErrors ? `${fieldId}__error` : undefined
-    };
     
     return (
-        <fieldset ref={ref} className={styles.fieldset}>
-            <legend className={styles.legend}>{label}</legend>
-            <FormFieldContext.Provider value={contextValue}>
-                <CheckboxListContext.Provider value={{ value, onChange }}>
-                    {children}
-                </CheckboxListContext.Provider>
-            </FormFieldContext.Provider>
-            {/* TODO: errors and hints! */}
-        </fieldset>
+        <FormFieldProvider name={name} fieldId={fieldId} hint={hint} required={required}>
+            <div className={styles.formField}>
+                <Fieldset ref={ref} label={label}>
+                    <CheckboxListContext.Provider value={{ value, onChange }}>
+                        {children}
+                    </CheckboxListContext.Provider>
+                </Fieldset>
+                <Errors />
+                <Hints />
+            </div>
+        </FormFieldProvider>
     );
 });
 CheckboxList.displayName = 'CheckboxList';
 
-export { CheckboxList };
+const Fieldset = forwardRef<HTMLFieldSetElement, { children: ReactNode; label: string }>(({ children, label }, ref) => {
+    const {
+        required,
+        ...ariaProps
+    } = useFormField();
+    
+    return (
+        <fieldset ref={ref} className={styles.formField} {...ariaProps}>
+            <legend className={styles.label}>
+                {label}{!required ? ' (Optional)' : null}
+            </legend>
+            {children}
+        </fieldset>
+    );
+});
+Fieldset.displayName = 'Fieldset';
+
+export {CheckboxList};
