@@ -5,6 +5,8 @@ import {Checkbox, CheckboxList} from "~/components/forms/checkbox";
 import {useReducer} from "react";
 import {difference, uniq} from "lodash-es";
 import {TimeInput} from "~/components/forms/time-input";
+import {DateTime} from "luxon";
+import {Time} from "~/components/time";
 
 type NominatorFormProps = {
     variant: 'new' | 'existing';
@@ -22,10 +24,25 @@ function NominatorForm(props: NominatorFormProps) {
     } = props;
     
     const [attributesState, dispatch] = useReducer(attributesStateReducer, null, () => ({
-        initialValue: defaultValues.attributes,
-        value: defaultValues.attributes,
+        initialValue: defaultValues.attributes.map(attr => attr.attributeName),
+        value: defaultValues.attributes.map(attr => attr.attributeName),
         dirty: false
     }));
+    
+    const options = [
+        { value: NominatorAttributeType.AC_MEMBER, label: 'AgriCorp' },
+        { value: NominatorAttributeType.EDU_CORP, label: 'EduCorp' },
+        { value: NominatorAttributeType.INQUISITOR, label: 'Inquisitor' },
+        { value: NominatorAttributeType.BANNED, label: 'Banned' },
+    ].map(({ value, label }) => {
+        const currentValue = defaultValues.attributes.find(x => x.attributeName === value);
+        return {
+            value,
+            label,
+            effectiveAt: currentValue?.effectiveAt ? DateTime.fromISO(currentValue.effectiveAt) : null,
+            disabled: value !== NominatorAttributeType.BANNED && attributesState.value.includes(NominatorAttributeType.BANNED)
+        };
+    });
 
     return (
         <MutationForm>
@@ -40,22 +57,19 @@ function NominatorForm(props: NominatorFormProps) {
                     onChange={(checkbox, checked) => dispatch({ checkbox: checkbox as NominatorAttributeType, checked })}
                     hint={['Banning a user will remove all other attributes.']}
                 >
-                    <Checkbox 
-                        value={NominatorAttributeType.AC_MEMBER}
-                        label='AgriCorp'
-                        disabled={attributesState.value.includes(NominatorAttributeType.BANNED)}
-                    />
-                    <Checkbox 
-                        value={NominatorAttributeType.EDU_CORP}
-                        label='EduCorp'
-                        disabled={attributesState.value.includes(NominatorAttributeType.BANNED)}
-                    />
-                    <Checkbox 
-                        value={NominatorAttributeType.INQUISITOR}
-                        label='Inquisitor'
-                        disabled={attributesState.value.includes(NominatorAttributeType.BANNED)}
-                    />
-                    <Checkbox value={NominatorAttributeType.BANNED} label='Banned' />
+                    {options.map(({ value, label, disabled, effectiveAt }) => (
+                        <Checkbox 
+                            key={value}
+                            value={value}
+                            label={label}
+                            disabled={disabled}
+                            hint={effectiveAt ? (
+                                <>
+                                    Effective as of <Time value={effectiveAt} />
+                                </>
+                            ) : null} 
+                        />
+                    ))}
                 </CheckboxList>
                 {/* only require these fields for new nominators that have attributes, OR an existing one with changed attributes */}
                 {(variant === 'new' && attributesState.value.length > 0) || (variant === 'existing' && attributesState.dirty) ? (
