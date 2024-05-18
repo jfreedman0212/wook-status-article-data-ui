@@ -29,7 +29,7 @@ function Layout({ loggedInUser, children }: LayoutProps) {
                             <Link to='/admin'>Manage Data</Link>
                         ) : (
                             <Form action="/auth/auth0" method="post">
-                                <Button variant='link'>Manage Data</Button>
+                                <Button variant='link' type='submit'>Manage Data</Button>
                             </Form>
                         )}
                     </nav>
@@ -37,7 +37,7 @@ function Layout({ loggedInUser, children }: LayoutProps) {
                 {loggedInUser ? (
                     <Form action="/auth/logout" method="post" className={styles.user}>
                         <span>Welcome, {loggedInUser.name}.</span>
-                        <Button variant='link'>Log Out</Button>
+                        <Button variant='link' type='submit'>Log Out</Button>
                     </Form>
                 ) : null}
             </header>

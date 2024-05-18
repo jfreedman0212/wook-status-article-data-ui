@@ -1,0 +1,8 @@
+.fieldset {
+    composes: input from '../input.module.css';
+}
+
+.legend {
+    
+}
+
