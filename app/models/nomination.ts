@@ -1,3 +1,5 @@
+import {ProjectType} from "~/models/project";
+
 enum Continuity {
     LEGENDS = 'Legends',
     OUT_OF_UNIVERSE = 'OutOfUniverse',
@@ -22,6 +24,8 @@ enum Outcome {
 type NominationProject = {
     id: number;
     name: string;
+    type: ProjectType;
+    isArchived: boolean;
 };
 
 type NominationNominator = {

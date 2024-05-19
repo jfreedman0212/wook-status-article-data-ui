@@ -37,16 +37,16 @@
     transition: outline-color,outline-width 100ms ease-in-out;
     font-size: 1rem;
     padding: 0.5rem 0.75rem;
-    border: 1px solid var(--blue-12);
+    border: 1px solid var(--gray-7);
     border-radius: 5px;
     text-decoration: none;
-    color: var(--blue-12);
-    background: var(--blue-2);
+    color: var(--gray-12);
+    background-color: var(--gray-2);
 }
 
 .input::file-selector-button:hover {
     cursor: pointer;
-    background: var(--blue-4);
+    background: var(--gray-4);
 }
 
 .input:disabled::file-selector-button {

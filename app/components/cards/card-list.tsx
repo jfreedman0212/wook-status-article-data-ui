@@ -3,11 +3,12 @@ import styles from './cards.module.css';
 
 type CardListProps = {
     children: ReactNode;
+    direction?: 'horizontal' | 'vertical'
 };
 
-function CardList({ children }: CardListProps) {
+function CardList({ direction = 'horizontal', children }: CardListProps) {
     return (
-        <ul className={styles.cardList}>
+        <ul className={`${styles.cardList} ${styles[direction]}`}>
             {children}
         </ul>
     );
