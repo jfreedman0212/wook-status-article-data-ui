@@ -9,7 +9,8 @@ type TextInputType =
     | 'tel'
     | 'text'
     | 'url'
-    | 'date';
+    | 'date'
+    | 'file';
 
 type InputProps = Omit<ComponentPropsWithoutRef<'input'>, 'aria-invalid' | 'aria-errormessage' | 'className' | 'id' | 'type' | 'required'>
     & { type?: TextInputType };

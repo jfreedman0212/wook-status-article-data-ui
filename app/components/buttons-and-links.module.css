@@ -59,6 +59,12 @@
     background: var(--blue-4);
 }
 
+.secondary:disabled {
+    border-color: var(--gray-11);
+    color: var(--gray-11);
+    background: var(--gray-5);
+}
+
 .link {
     composes: outline-transition;
     composes: alignment;

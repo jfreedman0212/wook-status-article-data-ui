@@ -18,14 +18,24 @@ const wookApiFetch = async <TBody>(
     const combinedHeaders = new Headers(headers);
     combinedHeaders.set("Authorization", `Bearer ${loggedInUser.accessToken}`);
     
-    if (body) {
+    if (body && !combinedHeaders.has('Content-Type')) {
         combinedHeaders.set('Content-Type', 'application/json');
+    }
+    
+    let bodyToSend: BodyInit | undefined = undefined;
+    
+    if (body && combinedHeaders.get('Content-Type') === 'application/json') {
+        bodyToSend = JSON.stringify(body);
+    } else if (body) {
+        // if we explicitly set the content type to anything other than JSON, just pass the
+        // body parameter as-is. this is primarily used for file uploads
+        bodyToSend = body as BodyInit;
     }
     
     const response = await fetch(new URL(url, `${process.env.WOOK_API_BASE_URL}`), { 
         headers: combinedHeaders,
         method,
-        body: body ? JSON.stringify(body) : undefined,
+        body: bodyToSend,
         ...options
     });
 

@@ -12,6 +12,7 @@ type MutationFormProps = {
     method?: Uppercase<MutationFormMethod> | Lowercase<MutationFormMethod>;
     actionName?: string;
     confirmation?: Confirmation;
+    encType?: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain" | undefined;
     children: ReactNode;
 };
 
@@ -20,7 +21,8 @@ function MutationForm(props: MutationFormProps) {
         action,
         method = 'post',
         actionName = 'action',
-        confirmation = { delete: 'Are you sure you want to delete this?' },
+        confirmation,
+        encType,
         children
     } = props;
     
@@ -31,7 +33,8 @@ function MutationForm(props: MutationFormProps) {
             className={styles.form}
             action={action}
             method={method}
-            onSubmit={(e) => {
+            encType={encType}
+            onSubmit={confirmation ? (e) => {
                 // we only do this to implement the delete confirmation. of course, the user won't
                 // have it if JS isn't available, but it will at least still work
                 const nativeEvent = e.nativeEvent as SubmitEvent;
@@ -40,14 +43,14 @@ function MutationForm(props: MutationFormProps) {
                 
                 // if we have a confirmation configured AND they agree to the confirmation, or
                 // we don't have one configured, submit the form
-                if (typeof action !== 'string' || !confirmation[action] || confirm(confirmation[action])) {
+                if (typeof action !== 'string' || !confirmation?.[action] || confirm(confirmation[action])) {
                     return true;
                 }
 
                 // otherwise, prevent the submission from going through
                 e.preventDefault();
                 return false;
-            }}
+            } : undefined}
         >
             <MutationFormContext.Provider value={context}>
                 {children}
