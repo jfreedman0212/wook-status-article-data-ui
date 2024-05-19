@@ -31,7 +31,7 @@ export default function Projects() {
                     New
                 </Link>
             </PageHeader>
-            <CardList>
+            <CardList direction='vertical'>
                 {rawProjects.map(p => (
                     <Card key={p.id} name={p.name}>
                         <Link to={`${p.id}`}>

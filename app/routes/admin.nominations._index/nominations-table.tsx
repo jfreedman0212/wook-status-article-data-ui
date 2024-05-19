@@ -27,7 +27,7 @@ const NominationsTable = forwardRef<DataGridHandle, NominationsTableProps>(({ no
                         onLoad();
                     }
                 }}
-                defaultColumnOptions={{ width: 'max-content', resizable: true }}
+                defaultColumnOptions={{ width: 'max-content' }}
                 enableVirtualization={enableVirtualization}
                 renderers={{ noRowsFallback: <NoRows /> }}
                 rowKeyGetter={rowKeyGetter}

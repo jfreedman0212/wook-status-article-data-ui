@@ -24,7 +24,7 @@ export default function Nominators() {
                     New
                 </Link>
             </PageHeader>
-            <CardList>
+            <CardList direction='vertical'>
                 {nominators.map(nominator => (
                     <Card key={nominator.id} name={nominator.name}>
                         <Link to={`${nominator.id}`}>
