@@ -1,0 +1,31 @@
+.details {
+    background-color: var(--gray-3);
+    border-radius: 5px;
+    padding: 1rem;
+    width: max-content;
+}
+
+.details[open] {
+    width: auto;
+}
+
+.details[open] .summary {
+    margin-bottom: 1rem;
+}
+
+.summary {
+    transition: outline-color,outline-width 100ms ease-in-out;
+    padding: 0.25rem;
+    border-radius: 5px;
+    width: max-content;
+    cursor: pointer;
+    text-decoration: 1px solid underline;
+}
+
+.summary:hover {
+    text-decoration-thickness: 3px;
+}
+
+.summary:focus {
+    outline: 3px solid var(--blue-7);
+}
