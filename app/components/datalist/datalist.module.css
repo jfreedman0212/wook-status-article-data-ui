@@ -1,0 +1,15 @@
+.datalist {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.datalist dt {
+    font-weight: bold;
+}
+
+.datalist dd {
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+}

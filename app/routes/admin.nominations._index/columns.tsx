@@ -1,5 +1,5 @@
 import {Column} from "react-data-grid";
-import {Nomination, NominationType} from "~/models/nomination";
+import {Continuity, Nomination, NominationType} from "~/models/nomination";
 import {Card, CardList} from "~/components/cards";
 import {Link} from "~/components/links";
 import {DateTime} from "luxon";
@@ -14,7 +14,7 @@ const nominationColumns: Column<Nomination>[] = [
                 <CardList>
                     {row.nominators.map((nominator) => (
                         <Card key={nominator.id} size='small' name={nominator.name}>
-                            {nominator.name}
+                            <Link size='small' to={`/admin/nominators/${nominator.id}`}>{nominator.name}</Link>
                         </Card>
                     ))}
                 </CardList>
@@ -25,10 +25,12 @@ const nominationColumns: Column<Nomination>[] = [
         key: 'articleName',
         name: 'Article Name',
         renderCell({ row }) {
+            const baseArticleName = row.articleName.replace(/ \([a-zA-Z]+ nomination\)/i, '');
+            
             return (
                 <Link
                     size='small'
-                    to={`https://starwars.fandom.com/wiki/${row.articleName.replace(' ', '_')}`}
+                    to={`https://starwars.fandom.com/wiki/${baseArticleName.replace(' ', '_')}`}
                     rel="noreferrer"
                     target='_blank'
                 >
@@ -41,7 +43,23 @@ const nominationColumns: Column<Nomination>[] = [
         key: 'continuities',
         name: 'Continuity',
         renderCell({ row }) {
-            return row.continuities.join(', ');
+            return row.continuities
+                .map(c => {
+                    switch (c) {
+                        case Continuity.LEGENDS:
+                            return 'Legends';
+                        case Continuity.OUT_OF_UNIVERSE:
+                            return 'OOU';
+                        case Continuity.CANON:
+                            return 'Canon';
+                        case Continuity.NON_CANON:
+                            return 'Non-Canon';
+                        case Continuity.NON_LEGENDS:
+                            return 'Non-Legends';
+                    }
+                })
+                .sort()
+                .join(', ');
         }
     },
     {
@@ -94,7 +112,7 @@ const nominationColumns: Column<Nomination>[] = [
                 <CardList>
                     {row.projects.map((project) => (
                         <Card key={project.id} size='small' name={project.name}>
-                            {project.name}
+                            <Link size='small' to={`/admin/projects/${project.id}`}>{project.name}</Link>
                         </Card>
                     ))}
                 </CardList>

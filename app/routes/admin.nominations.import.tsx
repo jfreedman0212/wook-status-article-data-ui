@@ -10,6 +10,8 @@ import {PageHeader} from "~/components/layout";
 import {Cancel, FormFields, MutationForm, PrimaryButtons, Submit} from "~/components/forms/mutation";
 import {FormField, Input} from "~/components/forms";
 import {wookApiFetch} from "~/api/wook-api-fetch.server";
+import {Details, Summary} from "~/components/details";
+import {Datalist} from "~/components/datalist";
 
 export const loader: LoaderFunction = async ({ request }) => {
     await authenticator.isAuthenticated(request, { failureRedirect: "/", });
@@ -41,10 +43,10 @@ export default function ImportForm() {
     return (
         <>
             <PageHeader heading='Import Nominations' level='h3'/>
-            <details>
-                <summary>Expected Columns</summary>
+            <Details>
+                <Summary>What columns need to be in the CSV?</Summary>
                 <ImportColumns />
-            </details>
+            </Details>
             <MutationForm encType="multipart/form-data">
                 <FormFields>
                     <FormField
@@ -70,17 +72,17 @@ export default function ImportForm() {
 
 function ImportColumns() {
     return (
-        <dl>
+        <Datalist>
             <dt>Nominator</dt>
             <dd>Semicolon-separated list of Nominator names.</dd>
 
             <dt>Article</dt>
             <dd>Name of the article being nominated.</dd>
 
-            <dt>Continuity (Optional)</dt>
+            <dt>Continuity</dt>
             <dd>
-                Comma-separated list of the Continuities for the article.
-                Acceptable values are: Legends, OOU, Canon, Non-Canon, and Non-Legends
+                (Optional) Comma-separated list of the Continuities for the article.
+                Acceptable values are: Legends, OOU, Canon, Non-Canon, and Non-Legends.
             </dd>
 
             <dt>Nomination Type</dt>
@@ -91,26 +93,26 @@ function ImportColumns() {
             <dt>Outcome</dt>
             <dd>Accepted values: successful, unsuccessful, withdrawn, and other.</dd>
 
-            <dt>Start Time (Optional)</dt>
-            <dd>Time in UTC when this nomination starts. Expected in 24-hour format (e.g. 03:33, 23:59, etc.).</dd>
+            <dt>Start Time</dt>
+            <dd>(Optional) Time in UTC when this nomination starts. Expected in 24-hour format (e.g. 03:33, 23:59, etc.).</dd>
 
-            <dt>Start Date (Optional)</dt>
+            <dt>Start Date</dt>
             <dd>Date in UTC when this nomination starts. Expected in the format YYYY-MM-DD (e.g. 2024-01-01).</dd>
 
-            <dt>End Time (Optional)</dt>
-            <dd>Time in UTC when this nomination ends. Expected in 24-hour format (e.g. 03:33, 23:59, etc.).</dd>
+            <dt>End Time</dt>
+            <dd>(Optional) Time in UTC when this nomination ends. Expected in 24-hour format (e.g. 03:33, 23:59, etc.).</dd>
 
-            <dt>End Date (Optional)</dt>
-            <dd>Date in UTC when this nomination ends. Expected in the format YYYY-MM-DD (e.g. 2024-01-01).</dd>
+            <dt>End Date</dt>
+            <dd>(Optional) Date in UTC when this nomination ends. Expected in the format YYYY-MM-DD (e.g. 2024-01-01).</dd>
 
-            <dt>Start Word Count (Optional)</dt>
-            <dd>Number of words at the beginning of the nomination period.</dd>
+            <dt>Start Word Count</dt>
+            <dd>(Optional) Number of words at the beginning of the nomination period.</dd>
 
-            <dt>End Word Count (Optional)</dt>
-            <dd>Number of words at the end of the nomination period.</dd>
+            <dt>End Word Count</dt>
+            <dd>(Optional) Number of words at the end of the nomination period.</dd>
 
-            <dt>Wookiee Projects (Optional)</dt>
-            <dd>Semicolon-separated list of WookieeProjects that this article is a part of.</dd>
-        </dl>
+            <dt>Wookiee Projects</dt>
+            <dd>(Optional) Semicolon-separated list of WookieeProjects that this article is a part of.</dd>
+        </Datalist>
     );
 }
