@@ -30,3 +30,27 @@
     color: var(--gray-10);
     cursor: initial;
 }
+
+/* CSS modules won't let me use composes on a selector for a psuedo-element */
+
+.input::file-selector-button {
+    transition: outline-color,outline-width 100ms ease-in-out;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--blue-12);
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--blue-12);
+    background: var(--blue-2);
+}
+
+.input::file-selector-button:hover {
+    cursor: pointer;
+    background: var(--blue-4);
+}
+
+.input:disabled::file-selector-button {
+    border-color: var(--gray-11);
+    color: var(--gray-11);
+    background: var(--gray-5);
+}
