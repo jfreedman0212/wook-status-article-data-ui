@@ -17,6 +17,7 @@
     border: 1px solid transparent;
     border-radius: 5px;
     text-decoration: none;
+    height: max-content;
 }
 
 .button:hover {
@@ -68,10 +69,11 @@
 .link {
     composes: outline-transition;
     composes: alignment;
+    display: inline-flex;
     border: none;
     background: none;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: inherit;
     padding: 0.5rem;
     text-decoration: 1px solid underline;
     color: inherit;
@@ -89,6 +91,10 @@
 .link:disabled, .link[aria-disabled='true'] {
     pointer-events: none;
     color: var(--gray-8);
+}
+
+.link.small {
+    padding: 0;
 }
 
 .navLink {

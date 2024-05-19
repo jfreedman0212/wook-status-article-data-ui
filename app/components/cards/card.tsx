@@ -2,15 +2,16 @@ import {ReactNode} from "react";
 import styles from './cards.module.css'; 
 
 type CardProps = {
+    size?: 'large' | 'small';
     children: ReactNode;
     name: string;
 };
 
-function Card({ children, name }: CardProps) {
+function Card({ size = 'large', children, name }: CardProps) {
     const colorClass = stringToColor(name);
 
     return (
-        <li className={`${styles.card} ${styles[colorClass]}`}>
+        <li className={`${styles.card} ${styles[size]} ${styles[colorClass]}`}>
             {children}
         </li>
     );

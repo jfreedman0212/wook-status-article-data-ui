@@ -5,12 +5,24 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    align-items: center;
+    height: 100%;
 }
 
 .card {
-    padding: 1rem;
+    padding: 0;
     border: 1px solid transparent;
     border-radius: 5px;
+    box-sizing: border-box;
+    line-height: normal;
+}
+
+.card.large {
+    padding: 1rem;
+}
+
+.card.small {
+    padding: 0.5rem;
 }
 
 .red {

@@ -16,6 +16,8 @@
 @import '@radix-ui/colors/purple-dark.css';
 @import '@radix-ui/colors/yellow-dark.css';
 
+@import 'react-data-grid/lib/styles.css';
+
 :root {
     font-family: Helvetica, sans-serif;
     font-size: 16px;
