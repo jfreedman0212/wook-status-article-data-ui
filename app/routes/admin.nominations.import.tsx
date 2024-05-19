@@ -50,7 +50,10 @@ export default function ImportForm() {
                     <FormField
                         name='upload'
                         label='CSV File'
-                        hint="Any projects and nominators that don't already exist will be created for you."
+                        hint={[
+                            "Any projects and nominators that don't already exist will be created for you.",
+                            "This will not update existing nominations, only create new ones."
+                        ]}
                         required
                     >
                         <Input type='file' accept='text/csv'/>

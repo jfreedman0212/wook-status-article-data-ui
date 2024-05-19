@@ -9,12 +9,14 @@ import styles from "../buttons-and-links.module.css";
 
 type BaseLinkProps = {
     variant?: 'primary' | 'secondary' | 'destructive' | 'link' | 'navLink';
+    size?: 'normal' | 'small';
 };
 
 type LinkProps = BaseLinkProps & Omit<RemixLinkProps, 'className'>;
 
-const Link = forwardRef<HTMLAnchorElement, LinkProps>(({ variant = 'link', ...props }, ref) => {
-    return <RemixLink className={styles[variant]} {...props} ref={ref} />;
+const Link = forwardRef<HTMLAnchorElement, LinkProps>(({ variant = 'link', size = 'normal', ...props }, ref) => {
+    const classNames = [styles[variant], size === 'small' ? styles.small : null].filter(x => !!x).join(' ');
+    return <RemixLink className={classNames} {...props} ref={ref} />;
 });
 Link.displayName = 'Link';
 

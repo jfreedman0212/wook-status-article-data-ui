@@ -17,7 +17,7 @@
 }
 
 .hint:empty {
-    visibility: collapse;
+    display: none;
 }
 
 .messageList {
@@ -25,7 +25,7 @@
 }
 
 .messageList:empty {
-    visibility: collapse;
+    display: none;
 }
 
 .errorMessage {

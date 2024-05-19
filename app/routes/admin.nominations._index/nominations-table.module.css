@@ -1,0 +1,16 @@
+/* for some reason, it doesn't like inline-size as a value */
+.container {
+    /*noinspection CssInvalidPropertyValue*/
+    contain: inline-size;
+}
+
+.table {
+    min-height: 750px;
+    max-height: 50vh;
+    scroll-behavior: smooth;
+}
+
+.noRows {
+    padding: 1rem;
+    grid-column: 1/-1;
+}
