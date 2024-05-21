@@ -1,7 +1,5 @@
 .filterForm {
-    display: grid;
-    grid-template-columns: minmax(max-content, 500px) max-content;
-    grid-template-rows: max-content;
+    display: flex;
     gap: 1rem;
     align-items: end;
 }

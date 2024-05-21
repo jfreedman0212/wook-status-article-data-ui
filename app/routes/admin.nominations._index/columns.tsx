@@ -1,5 +1,5 @@
 import {Column} from "react-data-grid";
-import {Continuity, Nomination, NominationType} from "~/models/nomination";
+import {continuities, Nomination, nominationTypes, outcomes} from "~/models/nomination";
 import {Card, CardList} from "~/components/cards";
 import {Link} from "~/components/links";
 import {DateTime} from "luxon";
@@ -45,20 +45,7 @@ const nominationColumns: Column<Nomination>[] = [
         name: 'Continuity',
         renderCell({row}) {
             return row.continuities
-                .map(c => {
-                    switch (c) {
-                        case Continuity.LEGENDS:
-                            return 'Legends';
-                        case Continuity.OUT_OF_UNIVERSE:
-                            return 'OOU';
-                        case Continuity.CANON:
-                            return 'Canon';
-                        case Continuity.NON_CANON:
-                            return 'Non-Canon';
-                        case Continuity.NON_LEGENDS:
-                            return 'Non-Legends';
-                    }
-                })
+                .map(c => continuities.find(it => it.value === c)?.label)
                 .sort()
                 .join(', ');
         }
@@ -67,19 +54,15 @@ const nominationColumns: Column<Nomination>[] = [
         key: 'type',
         name: 'Nomination Type',
         renderCell({row}) {
-            switch (row.type) {
-                case NominationType.FEATURED:
-                    return 'FAN';
-                case NominationType.GOOD:
-                    return 'GAN';
-                case NominationType.COMPREHENSIVE:
-                    return 'CAN';
-            }
+            return nominationTypes.find(it => it.value === row.type)?.label;
         }
     },
     {
         key: 'outcome',
-        name: 'Outcome'
+        name: 'Outcome',
+        renderCell({row}) {
+            return outcomes.find(it => it.value === row.outcome)?.label;
+        }
     },
     {
         key: 'startedAt',
