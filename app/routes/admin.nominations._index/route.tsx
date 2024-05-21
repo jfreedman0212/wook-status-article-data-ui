@@ -16,20 +16,20 @@ export const loader: LoaderFunction = async ({ request }) => {
     url.searchParams.delete('action');
 
     const response = await wookApiFetch(request, `nominations${url.searchParams.toString() ? '?' + url.searchParams.toString() : ''}`);
-    const list = await response.json() as Nomination[];
-    return json({ list, action });
+    const { page, totalItems } = await response.json() as { page: Nomination[], totalItems: number };
+    return json({ page, totalItems, action });
 };
 
 type LoaderResult = {
-    list: Nomination[];
+    page: Nomination[];
     action: 'next-page' | 'search';
-    query?: string;
+    totalItems: number;
 };
 
-const PAYLOAD_SIZE = 500;
+const PAYLOAD_SIZE = 100;
 
 export default function Nominations() {
-    const { list: initialNominations } = useLoaderData<LoaderResult>();
+    const { page: initialNominations, totalItems } = useLoaderData<LoaderResult>();
     
     const [nominations, setNominations] = useState(() => initialNominations);
     const [hasReachedEnd, setHasReachedEnd] = useState(() => initialNominations.length < PAYLOAD_SIZE);
@@ -54,7 +54,7 @@ export default function Nominations() {
     }
     
     useEffect(() => {
-        const newNominations = fetcher.data?.list;
+        const newNominations = fetcher.data?.page;
         const action = fetcher.data?.action;
 
         if (!newNominations) return;
@@ -70,7 +70,9 @@ export default function Nominations() {
 
     return (
         <>
-            <PageHeader heading='Nominations' level='h3' />
+            <PageHeader heading='Nominations' level='h3'>
+                <small>Showing {nominations.length} of {fetcher.data?.totalItems ?? totalItems}</small>
+            </PageHeader>
             <fetcher.Form method='get' className={styles.filterForm} ref={formRef}>
                 <input type="hidden" name="pageSize" value={PAYLOAD_SIZE}/>
                 <FormField name='order' label='Sort Direction' required>
