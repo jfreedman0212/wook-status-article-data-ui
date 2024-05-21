@@ -8,11 +8,25 @@ enum Continuity {
     NON_LEGENDS = 'NonLegends'
 }
 
+const continuities = [
+    { label: 'Legends', value: Continuity.LEGENDS },
+    { label: 'OOU', value: Continuity.OUT_OF_UNIVERSE },
+    { label: 'Canon', value: Continuity.CANON },
+    { label: 'Non-Canon', value: Continuity.NON_CANON },
+    { label: 'Non-Legends', value: Continuity.NON_LEGENDS },
+];
+
 enum NominationType {
     FEATURED = 'Featured',
     GOOD = 'Good',
     COMPREHENSIVE = 'Comprehensive'
 }
+
+const nominationTypes = [
+    { label: 'CAN', value: NominationType.COMPREHENSIVE },
+    { label: 'FAN', value: NominationType.FEATURED },
+    { label: 'GAN', value: NominationType.GOOD }
+];
 
 enum Outcome {
     SUCCESSFUL = 'Successful',
@@ -20,6 +34,13 @@ enum Outcome {
     WITHDRAWN = 'Withdrawn',
     OTHER = 'Other'
 }
+
+const outcomes = [
+    { label: 'Successful', value: Outcome.SUCCESSFUL },
+    { label: 'Unsuccessful', value: Outcome.UNSUCCESSFUL },
+    { label: 'Withdrawn', value: Outcome.WITHDRAWN },
+    { label: 'Other', value: Outcome.OTHER }
+];
 
 type NominationProject = {
     id: number;
@@ -53,5 +74,8 @@ export {
     type NominationNominator,
     Continuity,
     NominationType,
-    Outcome
+    Outcome,
+    outcomes,
+    nominationTypes,
+    continuities
 };
