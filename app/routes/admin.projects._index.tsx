@@ -3,16 +3,9 @@ import {useLoaderData} from "@remix-run/react";
 import {ProjectType, RawProject} from "~/models/project";
 import {Link} from "~/components/links";
 import {PageHeader} from "~/components/layout";
-import {LoaderFunction, MetaFunction, json} from "@remix-run/node";
+import {LoaderFunction, json} from "@remix-run/node";
 import {PlusCircledIcon} from "@radix-ui/react-icons";
 import {Card, CardList} from "~/components/cards";
-
-export const meta: MetaFunction = () => {
-    return [
-        { title: "Admin - Projects" },
-        { name: "description", content: "Manage the WookieeProjects that can be assigned to articles." },
-    ];
-};
 
 export const loader: LoaderFunction = async ({ request }) => {
     const response = await wookApiFetch(request, 'projects');

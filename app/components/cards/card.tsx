@@ -1,24 +1,36 @@
 import {ReactNode} from "react";
 import styles from './cards.module.css'; 
 
+type CardColor =
+    | 'red'
+    | 'blue'
+    | 'green'
+    | 'orange'
+    | 'gray'
+    | 'pink'
+    | 'purple'
+    | 'yellow';
+
 type CardProps = {
     size?: 'large' | 'small';
     children: ReactNode;
     name: string;
+    color?: CardColor;
+    standalone?: boolean;
 };
 
-function Card({ size = 'large', children, name }: CardProps) {
-    const colorClass = stringToColor(name);
+function Card({ size = 'large', children, name, color = stringToColor(name), standalone = false }: CardProps) {
+    const Component = standalone ? 'div' : 'li';
 
     return (
-        <li className={`${styles.card} ${styles[size]} ${styles[colorClass]}`}>
+        <Component className={`${styles.card} ${styles[size]} ${styles[color]}`}>
             {children}
-        </li>
+        </Component>
     );
 }
 
-function stringToColor(inputString: string): string {
-    const colors = [
+function stringToColor(inputString: string): CardColor {
+    const colors: CardColor[] = [
         'red',
         'blue',
         'green',
