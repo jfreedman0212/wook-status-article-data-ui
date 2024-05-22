@@ -11,6 +11,7 @@ import {Cancel, FormFields, MutationForm, PrimaryButtons, SecondaryButtons, Subm
 type ProjectFormProps = {
     variant: 'new' | 'existing';
     defaultValues?: Project;
+    cancelTo?: string;
 };
 
 function ProjectForm(props: ProjectFormProps) {
@@ -21,7 +22,8 @@ function ProjectForm(props: ProjectFormProps) {
             name: '',
             type: ProjectType.CATEGORY,
             createdAt: DateTime.now().toUTC()
-        }
+        },
+        cancelTo = '/admin/projects'
     } = props;
 
     const createdAtDate = defaultValues?.createdAt?.toISODate() ?? '';
@@ -67,7 +69,7 @@ function ProjectForm(props: ProjectFormProps) {
 
             <PrimaryButtons>
                 <Submit />
-                <Cancel to='/admin/projects' />
+                <Cancel to={cancelTo} />
             </PrimaryButtons>
 
             {variant === 'existing' ? (
