@@ -13,17 +13,18 @@ type CardColor =
 
 type CardProps = {
     size?: 'large' | 'small';
+    direction?: 'vertical' | 'horizontal';
     children: ReactNode;
     name: string;
     color?: CardColor;
     standalone?: boolean;
 };
 
-function Card({ size = 'large', children, name, color = stringToColor(name), standalone = false }: CardProps) {
+function Card({ size = 'large', direction = 'horizontal', children, name, color = stringToColor(name), standalone = false }: CardProps) {
     const Component = standalone ? 'div' : 'li';
 
     return (
-        <Component className={`${styles.card} ${styles[size]} ${styles[color]}`}>
+        <Component className={`${styles.card} ${styles[size]} ${styles[color]} ${styles[direction]}`}>
             {children}
         </Component>
     );

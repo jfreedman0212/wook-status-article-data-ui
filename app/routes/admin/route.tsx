@@ -14,6 +14,7 @@ export default function Admin() {
                 </Link>
             </PageHeader>
             <nav className={styles.nav}>
+                <NavLink to='awards'>Awards</NavLink>
                 <NavLink to='projects'>Projects</NavLink>
                 <NavLink to='nominators'>Nominators</NavLink>
                 <NavLink to='nominations'>Nominations</NavLink>

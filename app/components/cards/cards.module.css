@@ -30,6 +30,17 @@
     border-radius: 5px;
     box-sizing: border-box;
     line-height: normal;
+    display: flex;
+    gap: 1rem;
+}
+
+.vertical {
+    flex-direction: column;
+}
+
+.horizontal {
+    flex-direction: row;
+    align-items: center;
 }
 
 .card.large {
