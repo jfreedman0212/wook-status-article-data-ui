@@ -17,6 +17,12 @@ const defaultFormat: DateTimeFormatOptions = {
     timeZone: 'UTC'
 };
 
+const dateOnlyFormat: DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+};
+
 const Time = forwardRef<HTMLTimeElement, TimeProps>(({ formatOptions = defaultFormat, value }, ref) => {
     if (!value) return <>&mdash;</>;
     
@@ -38,4 +44,4 @@ const Time = forwardRef<HTMLTimeElement, TimeProps>(({ formatOptions = defaultFo
 });
 Time.displayName = 'Time';
 
-export { Time };
+export { Time, defaultFormat, dateOnlyFormat };

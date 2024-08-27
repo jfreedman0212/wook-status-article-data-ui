@@ -2,7 +2,7 @@ import {ReactNode} from "react";
 import styles from "./page-header.module.css";
 
 type PageHeaderProps = {
-    level?: 'h2' | 'h3';
+    level?: 'h2' | 'h3' | 'h4';
     heading: string;
     children?: ReactNode;
     className?: string;

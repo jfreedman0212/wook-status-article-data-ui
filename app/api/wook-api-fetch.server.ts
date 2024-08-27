@@ -4,19 +4,23 @@ import {json, redirect} from "@remix-run/react";
 
 type CustomRequestInit<T> = Omit<RequestInit, 'body'> & {
     body?: T;
+    skipAuthentication?: boolean;
 };
 
 const wookApiFetch = async <TBody>(
     request: Request,
     url: string | URL,
-    { headers, method = 'get', body, ...options }: CustomRequestInit<TBody> = {}
+    { headers, method = 'get', body, skipAuthentication = false, ...options }: CustomRequestInit<TBody> = {}
 ): Promise<Response> => {
-    const loggedInUser = await authenticator.isAuthenticated(request, {
-        failureRedirect: "/",
-    });
-    
     const combinedHeaders = new Headers(headers);
-    combinedHeaders.set("Authorization", `Bearer ${loggedInUser.accessToken}`);
+
+    const loggedInUser = skipAuthentication
+        ? await authenticator.isAuthenticated(request)
+        : await authenticator.isAuthenticated(request, { failureRedirect: '/' });
+
+    if (loggedInUser) {
+        combinedHeaders.set("Authorization", `Bearer ${loggedInUser.accessToken}`);
+    }
     
     if (body && !combinedHeaders.has('Content-Type')) {
         combinedHeaders.set('Content-Type', 'application/json');

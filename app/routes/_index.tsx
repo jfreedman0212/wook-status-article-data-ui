@@ -1,10 +1,4 @@
-import {PageHeader} from "~/components/layout";
+import {LoaderFunction} from "@remix-run/node";
+import {redirect} from "@remix-run/react";
 
-export default function Index() {
-  return (
-      <>
-        <PageHeader heading='Coming Soon!' />
-        <p>The running stats for the status articles will go here.</p>
-      </>
-  );
-}
+export const loader: LoaderFunction = () => redirect('/awards');

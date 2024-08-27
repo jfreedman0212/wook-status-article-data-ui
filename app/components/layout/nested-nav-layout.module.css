@@ -27,7 +27,6 @@
         grid-template-columns: 0.5fr 4fr;
         grid-template-rows: max-content max-content;
         row-gap: 2rem;
-        
     }
 
     .pageHeader {

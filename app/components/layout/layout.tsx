@@ -24,7 +24,7 @@ function Layout({ loggedInUser, children }: LayoutProps) {
                         />
                     </Link>
                     <nav className={styles.nav}>
-                        <Link to='/'>Stats</Link>
+                        <Link to='/awards'>Stats</Link>
                         {loggedInUser ? (
                             <Link to='/admin'>Manage Data</Link>
                         ) : (

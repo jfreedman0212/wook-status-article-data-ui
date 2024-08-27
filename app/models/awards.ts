@@ -14,4 +14,27 @@ type AwardGenerationGroup = {
     endedAt: DateTime;
 };
 
-export type { RawAwardGenerationGroup, AwardGenerationGroup };
+type Award = {
+    type: number;
+    winners: Winner[];
+};
+
+type Winner = {
+    names: string[];
+    count: number;
+};
+
+type RawAwardGenerationGroupDetail = RawAwardGenerationGroup & {
+    awards: Award[];
+};
+
+type AwardGenerationGroupDetail = AwardGenerationGroup & {
+    awards: Award[];
+};
+
+export type {
+    RawAwardGenerationGroup,
+    AwardGenerationGroup,
+    RawAwardGenerationGroupDetail,
+    AwardGenerationGroupDetail
+};
