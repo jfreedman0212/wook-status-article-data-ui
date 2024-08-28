@@ -3,6 +3,8 @@ import {fetchAwardGenerationGroupById} from "~/api/awards-api.server";
 import {useAwardGenerationGroup} from "~/api/awards-hooks";
 import {PageHeader} from "~/components/layout";
 import {dateOnlyFormat, Time} from "~/components/time";
+import {Table} from "~/components/table";
+import {Fragment} from "react";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     return await fetchAwardGenerationGroupById(request, params.id!, true);
@@ -22,33 +24,38 @@ export default function AwardDetails() {
                 </small>
             </PageHeader>
             {group.awards.map((award) => (
-                <section key={award.type}>
+                <Fragment key={award.type}>
                     <PageHeader heading={AWARD_TYPES[award.type] ?? 'TODO'} level='h4' />
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Place</th>
-                            <th>Name(s)</th>
-                            <th>Count</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {award.winners.map((winner, index) => (
-                            <tr key={winner.count}>
-                                <td>{index + 1}</td>
-                                <td>
-                                    {winner.names.length === 1 ? <>{winner.names[0]}</> : (
-                                        <ul>
-                                            {winner.names.map(name => <li key={name}>{name}</li>)}
-                                        </ul>
-                                    )}
-                                </td>
-                                <td>{winner.count}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </section>
+                    <Table
+                        columns={[
+                            {
+                                fieldName: 'row-number',
+                                header: 'Place'
+                            },
+                            {
+                                fieldName: 'names',
+                                header: 'Name(s)',
+                                render({ names }) {
+                                    return (
+                                        <>
+                                            {names.length === 1 ? <>{names[0]}</> : (
+                                                <ul>
+                                                    {names.map(name => <li key={name}>{name}</li>)}
+                                                </ul>
+                                            )}
+                                        </>
+                                    )
+                                }
+                            },
+                            {
+                                fieldName: 'count',
+                                header: 'Count'
+                            }
+                        ]}
+                        rowKey='count'
+                        rows={award.winners}
+                    />
+                </Fragment>
             ))}
         </>
     );

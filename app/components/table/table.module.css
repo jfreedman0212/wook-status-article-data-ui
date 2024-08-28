@@ -1,0 +1,34 @@
+.container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    border: 1px solid var(--gray-7);
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tableHead {
+
+}
+
+.tableHeader {
+    border: 1px solid var(--gray-7);
+    padding: 0.5rem;
+    font-weight: bold;
+    background-color: var(--gray-3);
+}
+
+.tableBody {
+
+}
+
+.tableRow {
+
+}
+
+.tableData {
+    border: 1px solid var(--gray-7);
+    padding: 0.5rem;
+}
