@@ -1,6 +1,5 @@
 import {useFetcher, useLoaderData} from "@remix-run/react";
 import {useEffect, useRef, useState} from "react";
-import {DataGridHandle} from "react-data-grid";
 import styles from "./nominations-filter.module.css";
 import {FormField, Input, Select} from "~/components/forms";
 import {continuities, Nomination, nominationTypes, outcomes} from "~/models/nomination";
@@ -20,11 +19,10 @@ function useNominationsTable(payloadSize: number = 100) {
     useEffect(() => {
         setNominations(initialNominations);
         setTotalItems(initialTotalItems);
-        tableRef?.current?.scrollToCell({ rowIdx: 0 });
+        window.scrollTo({ behavior: 'smooth', top: 0 });
     }, [initialNominations, initialTotalItems]);
     
     const [hasReachedEnd, setHasReachedEnd] = useState(() => initialNominations.length < payloadSize);
-    const tableRef = useRef<DataGridHandle | null>(null);
 
     const fetcher = useFetcher<LoaderResult>();
     const formRef = useRef<HTMLFormElement | null>(null);
@@ -54,7 +52,7 @@ function useNominationsTable(payloadSize: number = 100) {
         if (action === 'next-page') {
             setNominations((current) => [...current, ...newNominations]);
         } else {
-            tableRef?.current?.scrollToCell({ rowIdx: 0 });
+            window.scrollTo({ behavior: 'smooth', top: 0 });
             setNominations(newNominations);
         }
         setHasReachedEnd(newNominations.length < payloadSize);
@@ -106,11 +104,12 @@ function useNominationsTable(payloadSize: number = 100) {
     );
 
     return {
-        tableRef,
         totalItems,
         Form,
         loadNextPage,
-        nominations
+        nominations,
+        loading: fetcher.state === 'loading',
+        hasReachedEnd
     };
 }
 

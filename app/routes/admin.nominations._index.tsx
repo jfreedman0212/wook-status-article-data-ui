@@ -14,12 +14,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Nominations() {
-    const { 
-        tableRef,
+    const {
         totalItems,
         Form,
         loadNextPage,
-        nominations
+        nominations,
+        loading,
+        hasReachedEnd
     } = useNominationsTable();
 
     return (
@@ -28,7 +29,7 @@ export default function Nominations() {
                 <small>Showing {nominations.length} of {totalItems}</small>
             </PageHeader>
             {Form}
-            <NominationsTable ref={tableRef} nominations={nominations} onLoad={loadNextPage} />
+            <NominationsTable nominations={nominations} onLoad={loadNextPage} loading={loading} hasReachedEnd={hasReachedEnd} />
         </>
     );
 }

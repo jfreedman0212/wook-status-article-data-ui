@@ -13,7 +13,7 @@ type TableProps<TKey, TData> = {
     rows: TData[];
 };
 
-function Table<TKey extends string, TData extends Record<string, unknown> & Record<TKey, string | number>>({ columns, rowKey, rows }: TableProps<TKey, TData>) {
+function Table<TKey extends string, TData extends Record<Exclude<string, TKey>, unknown> & Record<TKey, string | number>>({ columns, rowKey, rows }: TableProps<TKey, TData>) {
     return (
         <div className={styles.container}>
             <table className={styles.table}>
@@ -42,4 +42,4 @@ function Table<TKey extends string, TData extends Record<string, unknown> & Reco
     );
 }
 
-export {Table};
+export {Table, type ColumnDefinition};

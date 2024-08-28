@@ -24,7 +24,7 @@
 @media screen and (min-width: 800px) {
     .page {
         display: grid;
-        grid-template-columns: 0.5fr 4fr;
+        grid-template-columns: 10% 90%;
         grid-template-rows: max-content max-content;
         row-gap: 2rem;
     }

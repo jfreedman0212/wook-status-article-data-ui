@@ -1,10 +1,14 @@
 .container {
     width: 100%;
     overflow-x: auto;
+    border-left: 2px solid var(--gray-7);
+    border-right: 2px solid var(--gray-7);
+    border-radius: 5px;
 }
 
 .table {
-    border: 1px solid var(--gray-7);
+    border-top: 2px solid var(--gray-7);
+    border-bottom: 2px solid var(--gray-7);
     border-collapse: collapse;
     width: 100%;
 }
@@ -20,6 +24,14 @@
     background-color: var(--gray-3);
 }
 
+.tableHeader:first-child {
+    border-left: none;
+}
+
+.tableHeader:last-child {
+    border-right: none;
+}
+
 .tableBody {
 
 }
@@ -31,4 +43,12 @@
 .tableData {
     border: 1px solid var(--gray-7);
     padding: 0.5rem;
+}
+
+.tableData:first-child {
+    border-left: none;
+}
+
+.tableData:last-child {
+    border-right: none;
 }

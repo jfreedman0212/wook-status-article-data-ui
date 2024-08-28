@@ -16,11 +16,12 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function ProjectNominations() {
     const {
-        tableRef,
         totalItems,
         Form,
         loadNextPage,
-        nominations
+        nominations,
+        loading,
+        hasReachedEnd
     } = useNominationsTable();
 
     return (
@@ -29,7 +30,7 @@ export default function ProjectNominations() {
                 <small>Showing {nominations.length} of {totalItems}</small>
             </PageHeader>
             {Form}
-            <NominationsTable ref={tableRef} nominations={nominations} onLoad={loadNextPage} />
+            <NominationsTable nominations={nominations} onLoad={loadNextPage} loading={loading} hasReachedEnd={hasReachedEnd} />
         </>
     );
 }
