@@ -2,10 +2,10 @@ import {LoaderFunction} from "@remix-run/node";
 import {wookApiFetch} from "~/api/wook-api-fetch.server";
 import {json, useLoaderData} from "@remix-run/react";
 import {PageHeader} from "~/components/layout";
-import {Card, CardList} from "~/components/cards";
 import {Nominator} from "~/models/nominator";
 import {Link} from "~/components/links";
 import {PlusCircledIcon} from "@radix-ui/react-icons";
+import {Table} from "~/components/table";
 
 export const loader: LoaderFunction = async ({ request }) => {
     const response = await wookApiFetch(request, 'nominators');
@@ -24,15 +24,23 @@ export default function Nominators() {
                     New
                 </Link>
             </PageHeader>
-            <CardList direction='vertical'>
-                {nominators.map(nominator => (
-                    <Card key={nominator.id} name={nominator.name}>
-                        <Link to={`${nominator.id}`}>
-                            {nominator.name}
-                        </Link>
-                    </Card>
-                ))}
-            </CardList>
+            <Table
+                columns={[
+                    {
+                        fieldName: 'name',
+                        header: 'Name',
+                        render(row) {
+                            return (
+                                <Link to={`${row.id}`}>
+                                    {row.name}
+                                </Link>
+                            )
+                        }
+                    }
+                ]}
+                rowKey='id'
+                rows={nominators}
+            />
         </>
     );
 }

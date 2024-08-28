@@ -5,7 +5,7 @@ import {Link} from "~/components/links";
 import {PageHeader} from "~/components/layout";
 import {LoaderFunction, json} from "@remix-run/node";
 import {PlusCircledIcon} from "@radix-ui/react-icons";
-import {Card, CardList} from "~/components/cards";
+import {Table} from "~/components/table";
 
 export const loader: LoaderFunction = async ({ request }) => {
     const response = await wookApiFetch(request, 'projects');
@@ -24,15 +24,33 @@ export default function Projects() {
                     New
                 </Link>
             </PageHeader>
-            <CardList direction='vertical'>
-                {rawProjects.map(p => (
-                    <Card key={p.id} name={p.name}>
-                        <Link to={`${p.id}`}>
-                            {p.type === ProjectType.INTELLECTUAL_PROPERTY ? <em>{p.name}</em> : <>{p.name}</>}
-                        </Link>
-                    </Card>
-                ))}
-            </CardList>
+            <Table
+                columns={[
+                    {
+                        fieldName: 'name',
+                        header: 'Name',
+                        render(row) {
+                            return (
+                                <Link to={`${row.id}`}>
+                                    {row.type === ProjectType.INTELLECTUAL_PROPERTY ? <em>{row.name}</em> : <>{row.name}</>}
+                                </Link>
+                            );
+                        }
+                    },
+                    {
+                        fieldName: 'type',
+                        header: 'Category',
+                        render(row) {
+                            switch (row.type) {
+                                case ProjectType.CATEGORY: return 'Category';
+                                case ProjectType.INTELLECTUAL_PROPERTY: return 'Intellectual Property';
+                            }
+                        }
+                    }
+                ]}
+                rowKey='id'
+                rows={rawProjects}
+            />
         </>
     );
 }
